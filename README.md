@@ -1,3 +1,6 @@
+## 🎼 ER Diagram — Music Matching System (Mermaid)
+
+```mermaid
 erDiagram
 
   USERS {
@@ -62,31 +65,34 @@ erDiagram
     bigint sender_id
   }
 
-  %% リレーション定義
+  %% --------------------
+  %% Relations
+  %% --------------------
 
-  USERS ||--o| MUSICIAN_PROFILES : "1 - 0..1 (musician)"
-  MUSICIAN_PROFILES ||--o{ TRACKS : "1 - N"
+  USERS ||--o| MUSICIAN_PROFILES : "1 - 0..1 musician profile"
+  MUSICIAN_PROFILES ||--o{ TRACKS : "1 - N tracks"
 
-  USERS ||--o{ JOBS : "client 1 - N jobs"
+  USERS ||--o{ JOBS : "client posts jobs"
 
-  JOBS ||--o{ PROPOSALS : "1 - N"
-  USERS ||--o{ PROPOSALS : "musician 1 - N proposals"
+  JOBS ||--o{ PROPOSALS : "job gets proposals"
+  USERS ||--o{ PROPOSALS : "musician sends proposals"
 
-  JOBS ||--o{ CONTRACTS : "1 - N(実質1)"
+  JOBS ||--o{ CONTRACTS : "job → contract"
   USERS ||--o{ CONTRACTS : "client"
   USERS ||--o{ CONTRACTS : "musician"
-  PROPOSALS ||--|| CONTRACTS : "1 - 0..1 from proposal"
+  PROPOSALS ||--|| CONTRACTS : "accepted proposal → contract"
 
-  CONTRACTS ||--o{ MILESTONES : "1 - N"
-  CONTRACTS ||--o{ TRANSACTIONS : "1 - N"
-  MILESTONES ||--o{ TRANSACTIONS : "1 - N"
+  CONTRACTS ||--o{ MILESTONES : "contract stages"
+  CONTRACTS ||--o{ TRANSACTIONS : "payments"
+  MILESTONES ||--o{ TRANSACTIONS : "milestone-based payments"
 
   USERS ||--o{ TRANSACTIONS : "payer"
   USERS ||--o{ TRANSACTIONS : "payee"
 
-  CONTRACTS ||--o{ REVIEWS : "1 - N"
+  CONTRACTS ||--o{ REVIEWS : "reviews"
   USERS ||--o{ REVIEWS : "reviewer"
   USERS ||--o{ REVIEWS : "reviewee"
 
-  CONTRACTS ||--o{ MESSAGES : "1 - N"
+  CONTRACTS ||--o{ MESSAGES : "messages"
   USERS ||--o{ MESSAGES : "sender"
+```
